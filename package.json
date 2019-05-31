@@ -1,0 +1,31 @@
+{
+    "name": "@2o3t/electron-window-manager",
+    "version": "0.0.1",
+    "author": "zyao89 <zyao89@gmail.com>",
+    "description": "Convenience manager methods for Electron windows.",
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "homepage": "https://github.com/2o3t/electron-window-manager",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/2o3t/electron-window-manager.git"
+    },
+    "dependencies": {
+        "@2o3t/electron-ipc-promise": "^0.0.2",
+        "is-electron-renderer": "^2.0.1",
+        "uuid": "^3.3.2"
+    },
+    "keywords": [
+        "2o3t",
+        "electron",
+        "window",
+        "manager"
+    ],
+    "devDependencies": {
+        "eslint": "^5.16.0",
+        "eslint-config-2o3t": "^1.1.4"
+    }
+}
