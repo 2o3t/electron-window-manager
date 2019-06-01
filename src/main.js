@@ -12,7 +12,7 @@ const INIT_WIN = Symbol('WindowManager#INIT_WIN');
 const UUID = require('uuid').v4;
 
 const optsFactory = require('./factory');
-const loadURLWithArgs = require('./loadURL');
+const loadURLWithArgs = require('./loadURL').loadURLWithArgs;
 const regiestListener = require('./listener');
 
 class WindowManager {
@@ -25,8 +25,17 @@ class WindowManager {
         this[WIN_SET] = new Set();
 
         // 程序退出时
-        app.on('quit', () => {
+        app.on('will-quit', () => {
             this.destroy();
+        });
+
+        // 当全部窗口关闭时退出。
+        app.on('window-all-closed', () => {
+            // 在 macOS 上，除非用户用 Cmd + Q 确定地退出，
+            // 否则绝大部分应用及其菜单栏会保持激活。
+            if (process.platform !== 'darwin') {
+                app.quit();
+            }
         });
     }
 
@@ -94,14 +103,18 @@ class WindowManager {
     }
 
     remove(win) {
-        if (win) {
-            this[WIN_SET].delete(win);
-            win.destroy();
+        if (!win) {
+            return;
+        }
+        this[WIN_SET].delete(win);
+        win.destroy();
+
+        if (this[MAIN_WIN] === win) {
+            this[MAIN_WIN] = null;
         }
     }
 
     destroy() {
-        this[MAIN_WIN] = null;
         this[WIN_SET].forEach(win => {
             this.remove(win);
         });
