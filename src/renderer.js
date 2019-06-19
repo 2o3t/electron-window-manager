@@ -7,15 +7,23 @@ function GetQueryString(name) {
 }
 
 // executed in context of window renderer
-function parseArgs() {
-    const queryArgs = GetQueryString('__ARGS__');
+function parseArgs(key = '__ARGS__') {
+    const queryArgs = GetQueryString(key);
     if (!queryArgs) {
-        global.__ARGS__ = {};
+        global[key] = {};
     } else {
-        global.__ARGS__ = Object.freeze(JSON.parse(decodeURIComponent(queryArgs)));
+        global[key] = Object.freeze(JSON.parse(decodeURIComponent(queryArgs)));
     }
+    return key;
+}
+
+function expandArgs(params = {}, key) {
+    key = parseArgs(key);
+    global[key] = Object.freeze(Object.assign({}, params, global[key]));
+    return global[key];
 }
 
 module.exports = {
     parseArgs,
+    expandArgs,
 };

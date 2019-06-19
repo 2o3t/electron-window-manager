@@ -1,6 +1,6 @@
 {
     "name": "@2o3t/electron-window-manager",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "author": "zyao89 <zyao89@gmail.com>",
     "description": "Convenience manager methods for Electron windows.",
     "license": "MIT",

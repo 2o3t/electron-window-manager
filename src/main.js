@@ -168,4 +168,7 @@ class WindowManager {
     }
 }
 
-module.exports = new WindowManager();
+const WM = new WindowManager();
+WM.WindowManager = WindowManager;
+
+module.exports = WM;
